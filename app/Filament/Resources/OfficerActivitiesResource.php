@@ -2,50 +2,48 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\OfficerActivitiesResource\Pages;
+use App\Filament\Resources\OfficerActivitiesResource\RelationManagers;
+use App\Models\OfficerActivities;
+use Faker\Provider\Text;
 use Filament\Forms;
-use Filament\Tables;
-use App\Models\Member;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Enum\Fakultas;
-use Illuminate\Support\Arr;
-use Filament\Resources\Resource;
-use Illuminate\Support\Facades\DB;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\MemberResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\MemberResource\RelationManagers;
+use Illuminate\Support\Facades\DB;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
-class MemberResource extends Resource
+class OfficerActivitiesResource extends Resource
 {
-    protected static ?string $model = Member::class;
+    protected static ?string $model = OfficerActivities::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
+    protected static ?string $navigationIcon = 'feathericon-activity';
 
     public static function form(Form $form): Form
     {
-        $fakultasOptions = [];
-  
-        $fakultasData = DB::table('fakultas')->get();
 
-        foreach ($fakultasData as $row) {
-            $fakultasOptions[$row->kode_fakultas] = $row->kode_fakultas . ' - ' . $row->nama_fakultas;
+        $staffIDOptions = [];
+  
+        $staffIDData = DB::table('petugas_perpustakaan')->get();
+
+        foreach ($staffIDData as $row) {
+            $staffIDOptions[$row->staff_id] = $row->staff_id . ' - ' . $row->nama;
         }
 
         return $form
             ->schema([
                 Section::make()
                     ->schema([
-                        TextInput::make('nim')->required(),
-                        Select::make('fakultas')->options($fakultasOptions),
-                        TextInput::make('nama')->required(),
-                        TextInput::make('alamat')->required(),
-                        TextInput::make('nomor_telepon')->required(),
-                        TextInput::make('email')->required(),                  
+                        Select::make('staff_id')->options($staffIDOptions),
+                        TextInput::make("deskripsi_aktivitas")->required(),
+                        TextInput::make("waktu_aktivitas")->required(),
                     ])
                     ->columns(2),
             ]);
@@ -55,12 +53,9 @@ class MemberResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('nim')->sortable()->searchable(),
-                TextColumn::make('nama'),
-                TextColumn::make('fakultas'),
-                TextColumn::make('alamat'),
-                TextColumn::make('nomor_telepon'),
-                TextColumn::make('email'),
+                TextColumn::make('staff_id')->sortable()->searchable(),
+                TextColumn::make('deskripsi_aktivitas'),
+                TextColumn::make('waktu_aktivitas'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -76,6 +71,7 @@ class MemberResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
+                    ExportBulkAction::make(),
                 ]),
             ]);
     }
@@ -90,9 +86,9 @@ class MemberResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListMembers::route('/'),
-            'create' => Pages\CreateMember::route('/create'),
-            'edit' => Pages\EditMember::route('/{record}/edit'),
+            'index' => Pages\ListOfficerActivities::route('/'),
+            'create' => Pages\CreateOfficerActivities::route('/create'),
+            'edit' => Pages\EditOfficerActivities::route('/{record}/edit'),
         ];
     }
 

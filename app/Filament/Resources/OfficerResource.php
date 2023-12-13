@@ -22,7 +22,7 @@ class OfficerResource extends Resource
 {
     protected static ?string $model = Officer::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'phosphor-user-circle-gear-bold';
 
     public static function form(Form $form): Form
     {
@@ -37,13 +37,13 @@ class OfficerResource extends Resource
 
         return $form
             ->schema([
-                Section::make('Heading')
+                Section::make('Make New Officer')
                     ->schema([
                         TextInput::make('staff_id')->required(),
                         TextInput::make('nama')->required(),
                         Select::make('jabatan')->options($jabatanOptions),
-                        TextInput::make('nomor_telepon')->required(),
-                        TextInput::make('email')->required(),
+                        TextInput::make('nomor_telepon')->required()->numeric(),
+                        TextInput::make('email')->required()->email()->autocomplete(),
                     ])
                     ->columns(2),
             ]);
