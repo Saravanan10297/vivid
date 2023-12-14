@@ -47,7 +47,15 @@ class DetailResource extends Resource
         $bookNIMData = DB::table('anggota_perpustakaan')->get();
 
         foreach ($bookNIMData as $row) {
-            $bookNIMOptions[$row->nim] = $row->nim . ' - ' . $row->nama;
+            $bookNIMOptions[$row->id] = $row->id . ' - ' . $row->nama;
+        }
+
+        $loanIDOptions = [];
+
+        $loanIDData = DB::table('peminjaman')->get();
+
+        foreach ($loanIDData as $row) {
+            $loanIDOptions[$row->loan_id] = $row->loan_id;
         }
 
 
@@ -55,7 +63,7 @@ class DetailResource extends Resource
             ->schema([
                 Section::make()
                     ->schema([
-                        TextInput::make('loan_id')->required(),
+                        Select::make('loan_id')->options($loanIDOptions),
                         Select::make("id_member")->options($bookNIMOptions),
                         Select::make('book_id')->options($bookIdOptions),
                         TextInput::make('jumlah')->required(),

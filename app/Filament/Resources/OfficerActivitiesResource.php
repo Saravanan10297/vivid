@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -43,7 +44,7 @@ class OfficerActivitiesResource extends Resource
                     ->schema([
                         Select::make('staff_id')->options($staffIDOptions),
                         TextInput::make("deskripsi_aktivitas")->required(),
-                        TextInput::make("waktu_aktivitas")->required(),
+                        TimePicker::make("waktu_aktivitas")->required(),
                     ])
                     ->columns(2),
             ]);
@@ -53,6 +54,7 @@ class OfficerActivitiesResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make("activity_id")->sortable()->searchable(),
                 TextColumn::make('staff_id')->sortable()->searchable(),
                 TextColumn::make('deskripsi_aktivitas'),
                 TextColumn::make('waktu_aktivitas'),

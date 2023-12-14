@@ -55,6 +55,7 @@ class MemberResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('id'),
                 TextColumn::make('nim')->sortable()->searchable(),
                 TextColumn::make('nama'),
                 TextColumn::make('fakultas'),

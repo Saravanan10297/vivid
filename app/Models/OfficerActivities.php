@@ -11,5 +11,6 @@ class OfficerActivities extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = "aktivitas_petugas";
+    protected $primaryKey = "activity_id";
     protected $fillable = ["staff_id", "deskripsi_aktivitas", "waktu_aktivitas"];
 }

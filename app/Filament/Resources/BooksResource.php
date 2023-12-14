@@ -38,7 +38,6 @@ class BooksResource extends Resource
             ->schema([
                 Section::make()
                 ->schema([
-                    TextInput::make("book_id")->required(),
                     TextInput::make("judul")->required(),
                     TextInput::make("pengarang")->required(),
                     TextInput::make("tahun_terbit")->required(),
@@ -53,7 +52,7 @@ class BooksResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('book_id')->sortable()->searchable(),
+                TextColumn::make("book_id")->searchable()->sortable(),
                 TextColumn::make('judul'),
                 TextColumn::make('pengarang'),
                 TextColumn::make("tahun_terbit"),

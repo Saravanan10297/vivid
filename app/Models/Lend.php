@@ -10,5 +10,6 @@ class Lend extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = "peminjaman";
-    protected $fillable = ["loan_id", "member_id", "tanggal_peminjaman", "tanggal_pengembalian", "status", "category_id"];
+    protected $primaryKey = "loan_id";
+    protected $fillable = ["member_id", "tanggal_peminjaman", "tanggal_pengembalian", "status", "category_id"];
 }

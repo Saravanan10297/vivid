@@ -6,7 +6,9 @@ use App\Filament\Resources\LendResource\Pages;
 use App\Filament\Resources\LendResource\RelationManagers;
 use App\Models\Lend;
 use Filament\Forms;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,6 +17,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\DB;
 
 class LendResource extends Resource
 {
@@ -24,16 +27,33 @@ class LendResource extends Resource
 
     public static function form(Form $form): Form
     {
+
+        $memberIDOptions = [];
+  
+        $memberIDData = DB::table('anggota_perpustakaan')->get();
+
+        foreach ($memberIDData as $row) {
+            $memberIDOptions[$row->id] = $row->id . ' - ' . $row->nim;
+        }
+
+        $kategoriBukuOptions = [];
+  
+        $kategoriBukuData = DB::table('kategori_buku')->get();
+
+        foreach ($kategoriBukuData as $row) {
+            $kategoriBukuOptions[$row->category_id] = $row->category_id . ' - ' . $row->nama_kategori;
+        }
+
+
         return $form
             ->schema([
                 Section::make()
                     ->schema([
-                        TextInput::make('loan_id')->required(),
-                        TextInput::make('member_id')->required(),
-                        TextInput::make('tanggal_peminjaman')->required(),
-                        TextInput::make('tanggal_pengembalian')->required(),
+                        Select::make('member_id')->options($memberIDOptions),
+                        DateTimePicker::make('tanggal_peminjaman')->required(),
+                        DateTimePicker::make('tanggal_pengembalian')->required(),
                         TextInput::make('status')->required(),
-                        TextInput::make('category_id')->required(),
+                        Select::make('category_id')->options($kategoriBukuOptions),
                     ])
                     ->columns(2),
             ]);

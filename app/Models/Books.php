@@ -12,5 +12,5 @@ class Books extends Model
 
     protected $table = "buku";
     protected $primaryKey = "book_id";
-    protected $fillable = ["book_id", "judul", "pengarang", "tahun_terbit", "ISBN", "category_id"];
+    protected $fillable = ["judul", "pengarang", "tahun_terbit", "ISBN", "category_id"];
 }
