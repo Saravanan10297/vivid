@@ -34,12 +34,20 @@ class BooksResource extends Resource
             $bookCategoriesOptions[$row->category_id] = $row->category_id . ' - ' . $row->nama_kategori;
         }
 
+        $pengarangOptions = [];
+
+        $pengarangData = DB::table("pengarang")->get();
+
+        foreach ($pengarangData as $row) {
+            $pengarangOptions[$row->kode_pengarang] = $row->nama_pengarang;
+        }
+
         return $form
             ->schema([
                 Section::make()
                 ->schema([
                     TextInput::make("judul")->required(),
-                    TextInput::make("pengarang")->required(),
+                    Select::make("pengarang")->options($pengarangOptions),
                     TextInput::make("tahun_terbit")->required(),
                     TextInput::make("ISBN")->required(),
                     Select::make("category_id")->options($bookCategoriesOptions),
