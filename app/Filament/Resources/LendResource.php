@@ -2,26 +2,29 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LendResource\Pages;
-use App\Filament\Resources\LendResource\RelationManagers;
-use App\Models\Lend;
 use Filament\Forms;
-use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\Lend;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\Resource;
 use Illuminate\Support\Facades\DB;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\DateTimePicker;
+use App\Filament\Resources\LendResource\Pages;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\LendResource\RelationManagers;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class LendResource extends Resource
 {
     protected static ?string $model = Lend::class;
+
+    protected static ?string $navigationGroup = 'Books Management';
 
     protected static ?string $navigationIcon = 'heroicon-o-folder-arrow-down';
 
@@ -41,7 +44,7 @@ class LendResource extends Resource
         $kategoriBukuData = DB::table('kategori_buku')->get();
 
         foreach ($kategoriBukuData as $row) {
-            $kategoriBukuOptions[$row->category_id] = $row->category_id . ' - ' . $row->nama_kategori;
+            $kategoriBukuOptions[$row->category_id . " - " . $row->nama_kategori] = $row->category_id . ' - ' . $row->nama_kategori;
         }
 
 
@@ -84,6 +87,7 @@ class LendResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
+                    ExportBulkAction::make(),
                 ]),
             ]);
     }

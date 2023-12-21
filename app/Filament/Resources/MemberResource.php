@@ -2,13 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
 use Filament\Tables;
 use App\Models\Member;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Filament\Enum\Fakultas;
-use Illuminate\Support\Arr;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\DB;
 use Filament\Forms\Components\Select;
@@ -17,12 +14,15 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\MemberResource\Pages;
+use App\Models\Faculties;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\MemberResource\RelationManagers;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class MemberResource extends Resource
 {
     protected static ?string $model = Member::class;
+
+    protected static ?string $navigationGroup = 'Member Management';
 
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
@@ -33,7 +33,7 @@ class MemberResource extends Resource
         $fakultasData = DB::table('fakultas')->get();
 
         foreach ($fakultasData as $row) {
-            $fakultasOptions[$row->kode_fakultas] = $row->kode_fakultas . ' - ' . $row->nama_fakultas;
+            $fakultasOptions[$row->kode_fakultas . " - " . $row->nama_fakultas] = $row->kode_fakultas . ' - ' . $row->nama_fakultas;
         }
 
         return $form
@@ -48,8 +48,9 @@ class MemberResource extends Resource
                         TextInput::make('email')->required(),                  
                     ])
                     ->columns(2),
-            ]);
+                ]);
     }
+
 
     public static function table(Table $table): Table
     {
@@ -77,6 +78,7 @@ class MemberResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
+                    ExportBulkAction::make(),
                 ]),
             ]);
     }
@@ -103,5 +105,10 @@ class MemberResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return self::$model::count();
     }
 }

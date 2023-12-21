@@ -2,28 +2,31 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\FineResource\Pages;
-use App\Filament\Resources\FineResource\RelationManagers;
-use App\Models\Fine;
 use DateTime;
-use Faker\Provider\Text;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\Fine;
 use Filament\Tables;
+use Faker\Provider\Text;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\Resource;
+use Illuminate\Support\Facades\DB;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
-use Filament\Tables\Columns\TextColumn;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\FineResource\Pages;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\FineResource\RelationManagers;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class FineResource extends Resource
 {
     protected static ?string $model = Fine::class;
+
+    protected static ?string $navigationGroup = 'Books Management';
 
     protected static ?string $navigationIcon = 'heroicon-o-no-symbol';
 
@@ -72,7 +75,8 @@ class FineResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make()
+                    Tables\Actions\RestoreBulkAction::make(),
+                    ExportBulkAction::make(),
                 ]),
             ]);
     }

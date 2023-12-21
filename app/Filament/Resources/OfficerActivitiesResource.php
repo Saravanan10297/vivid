@@ -25,6 +25,8 @@ class OfficerActivitiesResource extends Resource
 {
     protected static ?string $model = OfficerActivities::class;
 
+    protected static ?string $navigationGroup = 'Officer Management';
+
     protected static ?string $navigationIcon = 'feathericon-activity';
 
     public static function form(Form $form): Form
@@ -35,7 +37,7 @@ class OfficerActivitiesResource extends Resource
         $staffIDData = DB::table('petugas_perpustakaan')->get();
 
         foreach ($staffIDData as $row) {
-            $staffIDOptions[$row->staff_id] = $row->staff_id . ' - ' . $row->nama;
+            $staffIDOptions[$row->nama] = $row->staff_id . ' - ' . $row->nama;
         }
 
         return $form

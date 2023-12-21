@@ -9,18 +9,21 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\DB;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\OfficerResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use App\Filament\Resources\OfficerResource\RelationManagers;
-use Filament\Forms\Components\Select;
 
 class OfficerResource extends Resource
 {
     protected static ?string $model = Officer::class;
+
+    protected static ?string $navigationGroup = 'Officer Management';
 
     protected static ?string $navigationIcon = 'phosphor-user-circle-gear-bold';
 
@@ -32,7 +35,7 @@ class OfficerResource extends Resource
         $jabatanData = DB::table('jabatan')->get();
 
         foreach ($jabatanData as $row) {
-            $jabatanOptions[$row->kode_jabatan] = $row->kode_jabatan . ' - ' . $row->nama_jabatan;
+            $jabatanOptions[$row->nama_jabatan . " - " . $row->kode_jabatan] = $row->kode_jabatan . ' - ' . $row->nama_jabatan;
         }
 
         return $form
@@ -72,7 +75,8 @@ class OfficerResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make()
+                    Tables\Actions\RestoreBulkAction::make(),
+                    ExportBulkAction::make(),
                 ]),
             ]);
     }

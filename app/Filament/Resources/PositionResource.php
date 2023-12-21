@@ -2,37 +2,34 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms;
 use Filament\Tables;
+use App\Models\Position;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use App\Models\BookCategories;
 use Filament\Resources\Resource;
-use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\PositionResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\BookCategoriesResource\Pages;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use App\Filament\Resources\PositionResource\RelationManagers;
+use Filament\Forms\Components\TextInput;
 
-class BookCategoriesResource extends Resource
+class PositionResource extends Resource
 {
-    protected static ?string $model = BookCategories::class;
+    protected static ?string $model = Position::class;
 
-    protected static ?string $navigationGroup = 'Books Management';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationIcon = 'heroicon-o-bookmark-square';
+    protected static ?string $navigationGroup = 'Resource Management';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Section::make('Heading')
-                    ->schema([
-                        TextInput::make('category_id')->required(),
-                        TextInput::make('nama_kategori'),
-                    ])
-                    ->columns(2),
+                TextInput::make("kode_jabatan"),
+                TextInput::make("nama_jabatan")
             ]);
     }
 
@@ -40,11 +37,12 @@ class BookCategoriesResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('category_id')->sortable()->searchable(),
-                TextColumn::make('nama_kategori'),
-            ])
+                TextColumn::make("id"),
+                TextColumn::make("kode_jabatan"),
+                TextColumn::make("nama_jabatan"),
+                ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -72,9 +70,9 @@ class BookCategoriesResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBookCategories::route('/'),
-            'create' => Pages\CreateBookCategories::route('/create'),
-            'edit' => Pages\EditBookCategories::route('/{record}/edit'),
+            'index' => Pages\ListPositions::route('/'),
+            'create' => Pages\CreatePosition::route('/create'),
+            'edit' => Pages\EditPosition::route('/{record}/edit'),
         ];
     }
 

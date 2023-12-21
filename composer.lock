@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a23e5708251950302322e103dd3ef35",
+    "content-hash": "c4ab8018bb84b5cb12840bd789db6db8",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -5050,16 +5050,16 @@
         },
         {
             "name": "pxlrbt/filament-excel",
-            "version": "v2.1.8",
+            "version": "v2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pxlrbt/filament-excel.git",
-                "reference": "c1fff9026e386474a55a4463ca24a258390b252f"
+                "reference": "4c8abacce0eb8f13e2010669b3616aea4ad6fab1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pxlrbt/filament-excel/zipball/c1fff9026e386474a55a4463ca24a258390b252f",
-                "reference": "c1fff9026e386474a55a4463ca24a258390b252f",
+                "url": "https://api.github.com/repos/pxlrbt/filament-excel/zipball/4c8abacce0eb8f13e2010669b3616aea4ad6fab1",
+                "reference": "4c8abacce0eb8f13e2010669b3616aea4ad6fab1",
                 "shasum": ""
             },
             "require": {
@@ -5105,7 +5105,7 @@
             ],
             "support": {
                 "issues": "https://github.com/pxlrbt/filament-excel/issues",
-                "source": "https://github.com/pxlrbt/filament-excel/tree/v2.1.8"
+                "source": "https://github.com/pxlrbt/filament-excel/tree/v2.2.3"
             },
             "funding": [
                 {
@@ -5113,7 +5113,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-10-31T08:23:14+00:00"
+            "time": "2023-12-21T07:31:22+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -10634,7 +10634,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "beta",
     "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,

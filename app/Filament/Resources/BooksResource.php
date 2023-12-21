@@ -2,25 +2,28 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BooksResource\Pages;
-use App\Filament\Resources\BooksResource\RelationManagers;
-use App\Models\Books;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
+use App\Models\Books;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
+use Filament\Resources\Resource;
 use Illuminate\Support\Facades\DB;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\BooksResource\Pages;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use App\Filament\Resources\BooksResource\RelationManagers;
 
 class BooksResource extends Resource
 {
     protected static ?string $model = Books::class;
+
+    protected static ?string $navigationGroup = 'Books Management';
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
@@ -31,7 +34,7 @@ class BooksResource extends Resource
         $bookCategoriesData = DB::table('kategori_buku')->get();
 
         foreach ($bookCategoriesData as $row) {
-            $bookCategoriesOptions[$row->category_id] = $row->category_id . ' - ' . $row->nama_kategori;
+            $bookCategoriesOptions[$row->category_id . " - " . $row->nama_kategori] = $row->category_id . ' - ' . $row->nama_kategori;
         }
 
         $pengarangOptions = [];
@@ -81,6 +84,7 @@ class BooksResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
+                    ExportBulkAction::make(),
                 ]),
             ]);
     }

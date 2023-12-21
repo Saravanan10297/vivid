@@ -2,25 +2,28 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LendDetailResource\Pages;
-use App\Filament\Resources\LendDetailResource\RelationManagers;
-use App\Models\Detail;
 use Filament\Forms;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
+use App\Models\Detail;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Illuminate\Support\Facades\DB;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\DB;
+use App\Filament\Resources\LendDetailResource\Pages;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use App\Filament\Resources\LendDetailResource\RelationManagers;
 
 class DetailResource extends Resource
 {
     protected static ?string $model = Detail::class;
+
+    protected static ?string $navigationGroup = 'Books Management';
 
     protected static ?string $navigationIcon = 'heroicon-o-ellipsis-horizontal-circle';
 
@@ -98,6 +101,7 @@ class DetailResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
+                    ExportBulkAction::make(),
                 ]),
             ]);
     }
