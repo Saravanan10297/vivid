@@ -39,8 +39,8 @@ The application provides the following features:
 The application uses the following technology stack:
 
 1. Backend: Laravel
-2. Admin Panel: Filament
-3. Excel Integration: Filament-Excel
+2. Admin Panel: [Filament](https://filamentphp.com/)
+3. Excel Integration: [Filament-Excel](https://github.com/pxlrbt/filament-excel)
    
 ## License
 This project is licensed under the [MIT License](https://github.com/thisdoraemon/vivid/blob/main/LICENSE).
