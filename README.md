@@ -27,7 +27,7 @@ The application uses the following technology stack:
 3. Excel Integration: Filament-Excel
    
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](https://github.com/thisdoraemon/vivid/blob/main/LICENSE).
 
 ## Screenshots
 Here are some screenshots of the application:
