@@ -24,7 +24,7 @@ To get started with the application, you need to follow these steps:
     - **Password: admin**
   
 **Note:** This project is my first-time result of learning Laravel and Filament, 
-and it may be subject to further improvements.
+and it may be subject to further improvements. Feel free to import the provided `perpustakaan.sql` file into your local database and play around with it.
 
 ## Features
 
