@@ -22,6 +22,9 @@ To get started with the application, you need to follow these steps:
 
     - **Email: admin@admin.com**
     - **Password: admin**
+  
+**Note:** This project is my first-time result of learning Laravel and Filament, 
+and it may be subject to further improvements.
 
 ## Features
 
@@ -46,3 +49,5 @@ This project is licensed under the [MIT License](https://github.com/thisdoraemon
 Here are some screenshots of the application:
 
 ![Login Image](login.png)
+
+![Dashboard Image](dashboard.png)
