@@ -11,11 +11,23 @@ To get started with the application, you need to follow these steps:
     git clone https://github.com/thisdoraemon/vivid.git
     ```
 
+2. Start the development server.
+
+   ```bash
+    php artisan serve
+   ```
+
+3. Visit `http://localhost:8000/admin/login` in your browser.
+4. Log in with the following credentials:
+
+    - **Email: admin@admin.com**
+    - **Password: admin**
+
 ## Features
 
 The application provides the following features:
 
-1. CRUD operations for books
+- CRUD operations for books
 - Book listing with search, sort, and pagination capabilities
 - Export book data to Excel
 
@@ -32,3 +44,5 @@ This project is licensed under the [MIT License](https://github.com/thisdoraemon
 
 ## Screenshots
 Here are some screenshots of the application:
+
+![Login Image](login.png)
