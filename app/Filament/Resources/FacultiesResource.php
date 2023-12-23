@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Form;
 use App\Models\Faculties;
@@ -14,7 +13,6 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\FacultiesResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
-use App\Filament\Resources\FacultiesResource\RelationManagers;
 
 class FacultiesResource extends Resource
 {

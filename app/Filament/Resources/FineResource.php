@@ -2,11 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use DateTime;
-use Filament\Forms;
 use App\Models\Fine;
 use Filament\Tables;
-use Faker\Provider\Text;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
@@ -19,7 +16,6 @@ use Filament\Forms\Components\DatePicker;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\FineResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\FineResource\RelationManagers;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class FineResource extends Resource
